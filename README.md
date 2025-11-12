@@ -3,8 +3,8 @@
 Compact, runnable references for the demos we covered: concept algebra, neuron visualizations, and the Husky-vs-Wolf case study. Everything lives under `reproductions/`, while shared assets stay in `datasets/` and `models/`.
 
 ## Repo Layout
-- `datasets/` – optional sample data (e.g., husky/wolf splits).
-- `models/model_weights/` – cached checkpoints such as `binary_classifier.pth`.
+- `datasets/` – optional sample data (e.g., `datasets/huskywolf/`).
+- `models/` – cached checkpoints (`models/huskywolf/binary_classifier.pth`, `models/concept_algebra_gan/...`).
 - `reproductions/concept_algebra/` – CLIP & Word2Vec word-analogy tooling (script + notebook).
 - `reproductions/feature_visualization/` – Lucent-based feature- and class-visualization scripts/notebooks.
 - `reproductions/huskywolf/` – notebook + helpers for the bias/Grad-CAM walkthrough.
@@ -22,19 +22,17 @@ Pass `--w2v-path` (or rely on `gensim.downloader`) for the classic word2vec vari
 
 ### Feature & Class Visualizations (Lucent)
 ```bash
-# channel / unit visualization
-python reproductions/feature_visualization/feature_visualization.py \
-  --layer inception4a.branch1.conv --unit 11 --steps 512
+# channel / unit visualization (edit goal/steps inside the script)
+python reproductions/feature_visualization/feature_visualization.py
 
-# class logit maximization
-python reproductions/feature_visualization/class_visualization.py \
-  --class-idx 543 --steps 640
+# class logit maximization (Fourier parametrization, default "dumbbell")
+python reproductions/feature_visualization/class_visualization.py
 ```
-Both scripts install-free aside from `lucent`, `torch`, `torchvision`, `pillow`, `matplotlib`. Each saves PNGs and shows them inline by default.
+Install `lucent`, `torch`, `torchvision`, `pillow`, `matplotlib` first. Each script prints where it wrote the snapshot/PNG; tweak the constants near the bottom to target other neurons/classes.
 
 ### Husky vs. Wolf (Bias + Grad-CAM)
 Open `reproductions/huskywolf/HuskyWolf_minimal.ipynb` to:
-1. Auto-load (or train) the lightweight binary classifier using `models/model_weights/binary_classifier.pth`.
+1. Auto-load (or train) the lightweight binary classifier using `models/huskywolf/binary_classifier.pth`.
 2. Predict on any image (auto-pick helper included).
 3. Generate Grad-CAM overlays via `grad_cam_explain`.
 
