@@ -23,9 +23,9 @@ import matplotlib.pyplot as plt
 
 # ------------------------------ Paths & defaults ------------------------------
 SCRIPT_PATH = Path(__file__).resolve()
-ROOT = SCRIPT_PATH.parents[1]                    # .../ROOT
-OUT_DIR = ROOT / "scripts" / "out"
-WEIGHTS_DIR = ROOT / "scripts" / "weights"
+ROOT = SCRIPT_PATH.parents[2]                    # .../ROOT
+OUT_DIR = ROOT / "reproductions" / "concept_algebra" / "out"
+WEIGHTS_DIR = ROOT / "models" / "concept_algebra_gan"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 WEIGHTS_DIR.mkdir(parents=True, exist_ok=True)
 
