@@ -1,14 +1,23 @@
 import numpy as np
-import os
 from pathlib import Path
 from datetime import datetime
 from urllib.request import urlretrieve
 import torch
 
 SCRIPT_PATH = Path(__file__).resolve()
-ROOT = SCRIPT_PATH.parents[2]                    # .../ROOT
-OUT_DIR = ROOT / "reproductions" / "concept_algebra" / "out"
-WEIGHTS_DIR = ROOT / "models" / "concept_algebra_gan"
+
+
+def find_repo_root(path: Path) -> Path:
+    """Walk upward from `path` until a .git directory is found."""
+    for parent in path.parents:
+        if (parent / ".git").is_dir():
+            return parent
+    return path.parents[-1]
+
+
+REPO_ROOT = find_repo_root(SCRIPT_PATH)
+OUT_DIR = REPO_ROOT / "reproductions" / "concept_algebra" / "out"
+WEIGHTS_DIR = REPO_ROOT / "models" / "concept_algebra_gan"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 WEIGHTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -69,4 +78,3 @@ def make_column_grid(A, B, C, Y) -> np.ndarray:
     colC = stack_rows(C)
     colY = stack_rows(Y)
     return np.hstack([colA, colB, colC, colY])  # H_total x (4*W) x C
-

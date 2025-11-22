@@ -16,16 +16,12 @@ import numpy as np
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
-from src.utils import _timestamp, ensure_celebA_weights, make_column_grid
-
-# ------------------------------ Paths & defaults ------------------------------
-SCRIPT_PATH = Path(__file__).resolve()
-ROOT = SCRIPT_PATH.parents[2]                    # .../ROOT
-OUT_DIR = ROOT / "reproductions" / "concept_algebra" / "out"
-WEIGHTS_DIR = ROOT / "models" / "concept_algebra_gan"
-OUT_DIR.mkdir(parents=True, exist_ok=True)
-WEIGHTS_DIR.mkdir(parents=True, exist_ok=True)
-
+from src.utils import (
+    OUT_DIR,
+    _timestamp,
+    ensure_celebA_weights,
+    make_column_grid,
+)
 
 # Default DCGAN generator config for CelebA 64x64
 DEFAULT_LATENT_DIM = 100
@@ -81,7 +77,12 @@ def main():
     parser.add_argument("--ngf", type=int, default=DEFAULT_NGF, help="Generator feature size (ngf)")
     parser.add_argument("--device", type=str, default="cpu", choices=["cpu", "cuda"], help="cpu or cuda")
     parser.add_argument("--weights", type=str, default="", help="Path to a PyTorch generator .pth (optional)")
-    parser.add_argument("--out", type=str, default="", help="Output image path (PNG); default in scripts/out/")
+    parser.add_argument(
+        "--out",
+        type=str,
+        default="",
+        help="Output image path (PNG); default in reproductions/concept_algebra/out/",
+    )
     parser.add_argument("--no-show", action="store_true", help="Do not pop up a Matplotlib window")
     args = parser.parse_args()
 
