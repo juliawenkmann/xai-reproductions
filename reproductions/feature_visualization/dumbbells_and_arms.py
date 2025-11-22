@@ -77,7 +77,7 @@ dumbbell_idx_by_model = {
 # Compare with_arms vs without_arms
 # -------------------------
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DATA_ROOT = REPO_ROOT / "datasets" / "dumbbell_and_arms"
+DATA_ROOT = REPO_ROOT / "datasets" / "dumbbells_and_arms"
 with_dir = DATA_ROOT / "with_arms"
 without_dir = DATA_ROOT / "without_arms"
 

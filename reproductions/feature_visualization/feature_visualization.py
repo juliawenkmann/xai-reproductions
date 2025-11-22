@@ -1,9 +1,16 @@
-import os
 import sys
 from pathlib import Path
+
 import torch
-ROOT = "/Users/juliawenkmann/Documents/CodingProjects/damien/sophia_summit/sophia_summit_presentation/src/lucent"
-if ROOT not in sys.path: sys.path.insert(0, ROOT)
+
+HERE = Path(__file__).resolve().parent
+LUCENT_ROOT = HERE / "src" / "lucent"
+FIGURES_DIR = HERE / "figures"
+
+FIGURES_DIR.mkdir(exist_ok=True)
+
+if str(LUCENT_ROOT) not in sys.path:
+    sys.path.insert(0, str(LUCENT_ROOT))
 
 from lucent.optvis import render
 from lucent.modelzoo import inceptionv1
@@ -23,7 +30,7 @@ _ = render.render_vis(model, goal, show_inline=True, save_image=f"Visualization_
 
 obj = "mixed4a:11"
 
-pdf_out = "/Users/juliawenkmann/Documents/CodingProjects/damien/sophia_summit/sophia_summit_presentation/figures/feature_progression_mixed4a_11random_in_fourier.pdf"
+pdf_out = FIGURES_DIR / "feature_progression_mixed4a_11random_in_fourier.pdf"
 
 imgs = render.render_feature_with_snapshots(
     model,
@@ -37,7 +44,7 @@ imgs = render.render_feature_with_snapshots(
 print("Saved PDF:", pdf_out)
 
 
-pdf_out = "/Users/juliawenkmann/Documents/CodingProjects/damien/sophia_summit/sophia_summit_presentation/figures/feature_progression_mixed4a_11_random_in_pixel.pdf"
+pdf_out = FIGURES_DIR / "feature_progression_mixed4a_11_random_in_pixel.pdf"
 
 imgs = render.render_feature_with_snapshots(
     model,
